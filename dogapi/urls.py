@@ -1,15 +1,17 @@
-from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from .controllers import DogViewSet, BreedViewSet
-
-
-router = DefaultRouter()
-
-router.register(r'dogs', DogViewSet)
-router.register(r'breeds', BreedViewSet)
+from .controllers import (
+    DogList,
+    DogDetail,
+    BreedList,
+    BreedDetail,
+)
 
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('dogs/', DogList.as_view(), name='dog-list'),
+    path('dogs/<int:pk>/', DogDetail.as_view(), name='dog-detail'),
+
+    path('breeds/', BreedList.as_view(), name='breed-list'),
+    path('breeds/<int:pk>/', BreedDetail.as_view(), name='breed-detail'),
 ]
